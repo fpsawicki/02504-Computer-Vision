@@ -1,6 +1,12 @@
+import pathlib
+
+def load_images():
+    pass
+
 
 def main():
-    print('test')
+    folder = pathlib.Path('../dataset/seq50rect3')
+    images = load_images(folder)
 
 
 if __name__ == "__main__":
