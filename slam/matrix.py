@@ -38,12 +38,12 @@ def find_projection_matrix(camera_matrix, src_pts, dst_pts, rot1, rot2, trans, c
         # creates projection matrix for the second camera
         rt_mat_2nd = np.hstack((rot, t))
         projection_mat_2nd = np.dot(camera_matrix, rt_mat_2nd)
-        
+
         pts_3d = cv2.triangulatePoints(
             projection_mat_orig, projection_mat_2nd, points[:, 0], points[:, 1]
         )
-        uhomo_pts_3d = np.array([pts_3d[0]/pts_3d[3], pts_3d[1]/pts_3d[3], pts_3d[2]/pts_3d[3]])
-        if np.any(uhomo_pts_3d[2, :] < 0):
+        pts_3d = pts_3d / pts_3d[3]
+        if np.any(pts_3d[2, :] < 0):
             continue  # invalid solution, point is behind the camera
 
         solutions.append({

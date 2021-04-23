@@ -29,8 +29,8 @@ def find_corners(calibration_imgs, show_corners=False):
         objpoints.append(objp)
         imgpoints.append(corners2)
         if show_corners:
-            img = cv2.drawChessboardCorners(img, (n_rows, n_cols), corners2,ret)
-            cv2.imshow('img',img)
+            img = cv2.drawChessboardCorners(gray, (n_rows, n_cols), corners2, ret)
+            cv2.imshow('img', img)
             cv2.waitKey(0)
     
     if show_corners:
@@ -43,7 +43,7 @@ def calibrate(calibration_imgs, show_corners=False):
         calibration_imgs: list of calibration images, can more than one for experimentation
         show_corners: bool, displays image with found corners
 
-        returns: camera matrix
+        returns: camera matrix and distortion coeffs
     """
     objpoints, imgpoints, gray = find_corners(calibration_imgs, show_corners)
     ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(
@@ -51,4 +51,4 @@ def calibrate(calibration_imgs, show_corners=False):
     )
     if not ret:
         raise Exception("Camera calibration failed")
-    return mtx
+    return mtx, dist
