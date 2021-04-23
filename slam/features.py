@@ -48,7 +48,7 @@ def select_good_features(kp1, kp2, good):
         returns: filtered features of both cameras with good matches
     """
     pts_im1 = [kp1[m[0].queryIdx].pt for m in good]
-    pts_im1 = np.array(pts_im1, dtype=np.float32).T
+    pts_im1 = np.array(pts_im1, dtype=int)
     pts_im2 = [kp2[m[0].trainIdx].pt for m in good]
-    pts_im2 = np.array(pts_im2, dtype=np.float32).T
+    pts_im2 = np.array(pts_im2, dtype=int)
     return pts_im1, pts_im2
